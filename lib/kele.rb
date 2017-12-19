@@ -28,5 +28,19 @@ class Kele
   def get_checkpoints(id)
     response = self.class.get("https://www.bloc.io/api/v1/checkpoints/#{id}", headers: { "authorization" => @auth_token })
     body = JSON.parse(response.body)
-  end  
+  end
+
+  def get_messages(page = nil)
+    if page
+      response = self.class.get("https://www.bloc.io/api/v1/message_threads", body: { page: page }, headers: { "authorization" => @auth_token })
+      body = JSON.parse(response.body)
+    else
+      response = self.class.get("https://www.bloc.io/api/v1/message_threads", headers: { "authorization" => @auth_token })
+      body = JSON.parse(response.body)
+    end
+  end
+
+  def create_message(sender, recipient_id, message, subject)
+    self.class.post("https://www.bloc.io/api/v1/messages", headers: { "authorization" => @auth_token }, body: { sender: sender, recipient_id: recipient_id, stripped_text: message, subject: subject})
+  end
 end

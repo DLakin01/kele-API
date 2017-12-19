@@ -47,6 +47,9 @@ class Kele
 
   def create_submission(id, checkpoint_id, branch = nil, commit_link = nil, comment = nil)
     response = self.class.post("https://www.bloc.io/api/v1/checkpoint_submissions", body: { enrollment_id: id, checkpoint_id: checkpoint_id, assignment_branch: branch, assignment_commit_link: commit_link, comment: comment }, headers: { "authorization" => @auth_token })
-    body = JSON.parse(response.body)
+  end
+
+  def update_checkpoint(id, enrollment_id, checkpoint_id, branch = nil, commit_link = nil, comment = nil)
+    response = self.class.put("https://www.bloc.io/api/v1/checkpoint_submissions/:#{id}", body: { enrollment_id: enrollment_id, checkpoint_id: checkpoint_id, assignment_branch: branch, assignment_commit_link: commit_link, comment: comment }, headers: { "authorization" => @auth_token })
   end
 end

@@ -1,8 +1,8 @@
 require 'httparty'
 require 'json'
-require 'kele/roadmap'
+require 'apillary/roadmap'
 
-class Kele
+class Apillary
   include HTTParty
   include JSON
   include Roadmap
@@ -51,7 +51,7 @@ class Kele
   end
 
   def get_meme(pageIndex, pageSize, key)
-    response = self.class.get("http://version1.api.memegenerator.net//Generators_Select_ByNew?pageIndex=#{pageIndex}&pageSize=#{pageSize}&apiKey=#{key}")
+    response = self.class.get("https://version1.api.memegenerator.net//Generators_Select_ByNew?pageIndex=#{pageIndex}&pageSize=#{pageSize}&apiKey=#{key}")
     body = JSON.parse(response.body)
   end
 end
